@@ -14,9 +14,9 @@ class App extends React.Component {
     axios
     .get(`https://api.github.com/users/NRHietala`)
     .then(res => {
-      console.log(res.data)
+      const newData = res.data
       this.setState({
-        userData:res.data
+        userData: newData
       })
     })
     .catch(err => {
@@ -30,9 +30,9 @@ class App extends React.Component {
     })
   }
 
+
   handleClick = event => {
     event.preventDefault();
-
     axios.get(`https://api.github.com/users/${this.state.searchValue}`)
     .then(res => {
       console.log(res.data)
@@ -58,7 +58,11 @@ class App extends React.Component {
          <button onClick={this.handleClick}>Search</button>
        </form>
         <div className="cardContainer">
+          <img src={this.state.userData.avatar_url}/>
           <h2>{this.state.userData.name}</h2>
+          <p>{this.state.userData.bio}</p>
+          <p>Followers: {this.state.userData.followers}</p>
+          <p>Following: {this.state.userData.following}</p>
         </div>
       </div>
     )
